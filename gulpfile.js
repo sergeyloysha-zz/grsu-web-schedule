@@ -13,10 +13,10 @@ var buildDir = 'build';
 
 var appScripts = [
   'app/app.js',
-  'app/controllers/*.js',
-  'app/directives/*.js',
-  'app/services/*.js',
-  'app/filters/*.js'
+  'app/controllers.js',
+  'app/directives.js',
+  'app/services.js',
+  'app/filters.js'
 ];
 
 var appStyles = [
@@ -32,10 +32,8 @@ var appFonts = [
 // Vendor Files
 var vendorScripts = [
   'app/vendors/jquery/dist/jquery.min.js',
-  'app/vendors/angular/angular.min.js',
-  'app/vendors/angular-sanitize/angular-sanitize.min.js',
-  'app/vendors/angular-cookies/angular-cookies.min.js',
-  'app/vendors/angular-ui-router/release/angular-ui-router.min.js',
+  'app/vendors/angular/angular.js',
+  'app/vendors/angular-route/angular-route.js',
   'app/vendors/bootstrap/dist/js/bootstrap.min.js'
 ];
 
@@ -51,10 +49,6 @@ gulp.task('server', function() {
     host: '127.0.0.1',
     livereload: true
   });
-  gulp.src('./gulpfile.js')
-    .pipe(open('', {
-      url: 'http://localhost:2000'
-    }));
 });
 
 // Bower
