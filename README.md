@@ -11,8 +11,7 @@ Before running any Gulp tasks:
 4. Run `bower install`.
 5. Run `gulp watch`.
 
-Other
-=====
+## Other
 
 * **Bug tracker**: <https://github.com/sergeyloysha/grsu-web-schedule/issues>
 * **Souce code**: <https://github.com/sergeyloysha/grsu-web-schedule>
