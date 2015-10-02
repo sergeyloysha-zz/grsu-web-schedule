@@ -1,3 +1,4 @@
+var os = require('os');
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var minifyhtml = require('gulp-minify-html');
@@ -41,14 +42,27 @@ var vendorStyles = [
   'app/vendors/bootstrap/dist/css/bootstrap.min.css'
 ];
 
+var browser = os.platform() === 'linux' ? 'google-chrome' : (
+  os.platform() === 'darwin' ? 'google chrome' : (
+  os.platform() === 'win32' ? 'chrome' : 'firefox'));
+
 // Start the server
 gulp.task('server', function() {
-  connect.server({
+
+  var opts = {
     root: buildDir,
     port: 2000,
     host: '127.0.0.1',
     livereload: true
-  });
+  }
+
+  connect.server(opts);
+
+  gulp.src(__filename)
+    .pipe(open({
+      uri: 'http://' + opts.host + ':' + opts.port,
+      app: browser
+    }));
 });
 
 // Bower
