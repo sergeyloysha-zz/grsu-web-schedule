@@ -1,6 +1,9 @@
 angular.module('myApp.services', [])
 
   .factory('storage', ['$http', 'config', function($http, config){
+
+    var today = new Date();
+
     return {
       getFaculties: function() {
         return $http.get(config.apiUrl + '/getFaculties');

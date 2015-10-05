@@ -51,14 +51,17 @@ angular.module('myApp.controllers', [])
           $scope.data.groups = response.items;
         })
       }
+    });
 
-      if(values.faculty && values.department && values.course && values.group) {
+    $scope.$watch('model.group', function(newValue, oldValue) {
+      if(newValue == null) {
+        $scope.data.schedule = [];
+      } else {
         $scope.loadGroupSchedule();
       }
     });
 
     $scope.loadGroupSchedule = function() {
-      $log.log('run');
       storage.getGroupSchedule($scope.model.group).success(function(response){
         $scope.data.schedule = response;
       })
@@ -69,6 +72,14 @@ angular.module('myApp.controllers', [])
       localStorage.setItem('departmentId', $scope.model.department);
       localStorage.setItem('courseId', $scope.model.course);
       localStorage.setItem('groupId', $scope.model.group);
+    }
+
+    $scope.getGroupName = function() {
+      for(var i in $scope.data.groups){
+        if($scope.data.groups[i].id == $scope.model.group) {
+          return $scope.data.groups[i].title;
+        }
+      }
     }
 
   }])

@@ -9,6 +9,7 @@ var pngquant = require('imagemin-pngquant');
 var watch = require('gulp-watch');
 var connect = require('gulp-connect');
 var open = require('gulp-open');
+var ghPages = require('gulp-gh-pages');
 
 var buildDir = 'build';
 
@@ -35,11 +36,13 @@ var vendorScripts = [
   'app/vendors/jquery/dist/jquery.min.js',
   'app/vendors/angular/angular.js',
   'app/vendors/angular-route/angular-route.js',
+  'app/vendors/angular-loading-bar/src/loading-bar.js',
   'app/vendors/bootstrap/dist/js/bootstrap.min.js'
 ];
 
 var vendorStyles = [
-  'app/vendors/bootstrap/dist/css/bootstrap.min.css'
+  'app/vendors/bootstrap/dist/css/bootstrap.min.css',
+  'app/vendors/angular-loading-bar/src/loading-bar.css'
 ];
 
 var vendorFonts = [
@@ -138,6 +141,12 @@ gulp.task('fonts', function() {
 // Default task
 gulp.task('default', function() {
   gulp.start('scripts', 'vendors', 'views', 'styles', 'images', 'fonts');
+});
+
+// Deploy gh-pages branch task
+gulp.task('deploy', function() {
+  return gulp.src('./' + buildDir + '/**/*')
+    .pipe(ghPages());
 });
 
 // Watch

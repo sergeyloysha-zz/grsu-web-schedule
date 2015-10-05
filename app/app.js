@@ -8,14 +8,15 @@
 'use strict';
 
 angular.module('myApp', [
+  'angular-loading-bar',
   'ngRoute',
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers'
+  'myApp.controllers',
 ])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', 'cfpLoadingBarProvider', function($routeProvider, cfpLoadingBarProvider) {
   $routeProvider
     .when('/', {
       controller: 'AppCtrl',
