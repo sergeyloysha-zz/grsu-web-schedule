@@ -4,17 +4,6 @@ angular.module('myApp.controllers', [])
 
     var today = new Date();
 
-    $scope.layout = localStorage.getItem('layout') || 'list';
-
-    $scope.setLayout = function (layout) {
-        $scope.layout = layout;
-        localStorage.setItem('layout', layout);
-    };
-
-    $scope.isLayout = function (layout) {
-        return $scope.layout == layout;
-    };
-
     $scope.isToday = function(input) {
       var day = new Date(input);
       return day.toDateString() == today.toDateString();
@@ -26,7 +15,8 @@ angular.module('myApp.controllers', [])
       courses: [],
       groups: [],
       schedule: [],
-      dates: []
+      dates: [],
+      layouts: []
     }
 
     $scope.model = {
@@ -34,7 +24,8 @@ angular.module('myApp.controllers', [])
       department: localStorage.getItem('departmentId') || null,
       course: localStorage.getItem('courseId') || null,
       group: localStorage.getItem('groupId') || null,
-      date: localStorage.getItem('dateId') || 1
+      date: localStorage.getItem('dateId') || 1,
+      layout: localStorage.getItem('layoutId') || 'list'
     }
     
     storage.getFaculties().success(function(response){
@@ -48,6 +39,8 @@ angular.module('myApp.controllers', [])
     $scope.data.courses = storage.getCourses().items;
 
     $scope.data.dates = storage.getDates().items;
+
+    $scope.data.layouts = storage.getLayouts().items;
 
     $scope.$watchCollection('model', function(values, previous) {
       if(values.faculty && values.department && values.course) {
@@ -69,6 +62,10 @@ angular.module('myApp.controllers', [])
       localStorage.setItem('dateId', newValue);
     });
 
+    $scope.$watch('model.layout', function(newValue, oldValue) {
+      localStorage.setItem('layoutId', newValue);
+    });
+
     $scope.loadGroupSchedule = function() {
       if($scope.model.group != null) {
         storage.getGroupSchedule($scope.model.group, $scope.setScheduleDates()).success(function(response){
@@ -84,19 +81,32 @@ angular.module('myApp.controllers', [])
       localStorage.setItem('groupId', $scope.model.group);
     }
 
+    $scope.deleteGroup = function() {
+      localStorage.removeItem('facultyId');
+      localStorage.removeItem('departmentId');
+      localStorage.removeItem('courseId');
+      localStorage.removeItem('groupId');
+    }
+
     $scope.getGroupName = function() {
-      for(var i in $scope.data.groups){
+      for(var i in $scope.data.groups) {
         if($scope.data.groups[i].id == $scope.model.group) {
           return $scope.data.groups[i].title;
         }
       }
     }
 
+    $scope.isGroup = function() {
+      if($scope.model.group != null) {
+        return $scope.model.group == localStorage.getItem('groupId');
+      }
+    }
+
     $scope.setScheduleDates = function() {
       if($scope.model.date == 1) {
-        return {'dateStart': '05.10.2015', 'dateEnd':'10.10.2015'}
+        return {'dateStart': moment().startOf('week').format('DD.MM.YYYY'), 'dateEnd': moment().endOf('week').format('DD.MM.YYYY')}
       } else if ($scope.model.date == 2) {
-        return {'dateStart': '05.10.2015', 'dateEnd':'05.10.2015'}
+        return {'dateStart': moment().format('DD.MM.YYYY'), 'dateEnd': moment().format('DD.MM.YYYY')}
       }
     }
 

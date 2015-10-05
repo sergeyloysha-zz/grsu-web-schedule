@@ -50,25 +50,27 @@
 						<h5 class="pull-left" ng-show="data.schedule.length == 0">Нет расписания для отображения</h5>
 						<h5 class="pull-left" ng-hide="data.schedule.length == 0">Расписание для <span ng-bind="getGroupName()"></span></h5>
 						<div class="btn-group pull-right">
-					    <button type="button" class="btn btn-default"
-					    	ng-class="{active: isLayout('list')}"
-					    	ng-click="setLayout('list')">
-					    	<span class="glyphicon glyphicon-menu-hamburger"></span>
-					    </button>
-					    <button type="button" class="btn btn-default"
-					    	ng-class="{active: isLayout('grid')}"
-					    	ng-click="setLayout('grid')">
-					    	<span class="glyphicon glyphicon-th"></span>
-					    </button>
+					    <label class="btn btn-default"
+			        	ng-repeat="layout in data.layouts"
+			        	ng-class="{active:layout.id==$parent.model.layout}">
+			            <input type="radio" name="layout" ng-model="$parent.model.layout" value="{{layout.id}}"/>
+			            <span class="glyphicon glyphicon-{{layout.icon}}"></span>
+			        </label>
 					  </div>
 					  <div class="btn-group pull-right">
 			        <label class="btn btn-default"
 			        	ng-repeat="date in data.dates"
 			        	ng-class="{active:date.id==$parent.model.date}">
-			            <input type="radio" name="course" ng-model="$parent.model.date" ng-click="loadGroupSchedule()" value="{{date.id}}"/> {{ date.title }}
+			            <input type="radio" name="date" ng-model="$parent.model.date" ng-click="loadGroupSchedule()" value="{{date.id}}"/> {{ date.title }}
 			        </label>
 			    	</div>
-					  <button type="button" class="btn btn-default pull-right" ng-show="model.group" ng-click="saveGroup()">Это моя группа</button>
+			    	<div class="btn-group pull-right">
+						  <button type="button" class="btn" ng-class="isGroup() ? 'btn-success' : 'btn-default'" ng-show="model.group" ng-click="saveGroup()" ng-disabled="isGroup()">
+						  	<span ng-show="isGroup()" class="glyphicon glyphicon-ok"></span>
+						  	<span ng-bind="isGroup() ? 'Сохранено' : 'Запомнить выбор'"></span>
+						  </button>
+						  <button type="button" class="btn btn-danger" ng-show="isGroup()" ng-click="deleteGroup()">Удалить</button>
+					  </div>
 				</div>
 			</div>
 	  </div>
@@ -82,8 +84,8 @@
   	ng-disabled="model.group == null"
 		ng-click="loadGroupSchedule()">Показать</button>
 	
-	<div class="col-md-12" ng-class="{ 'grid' : isLayout('grid') , 'list' : isLayout('list') }">
-    <div ng-repeat="day in data.schedule.days" ng-class="{ 'col-md-4' : isLayout('grid')}">
+	<div class="col-md-12" ng-class="{ 'grid' : model.layout == 'grid' , 'list' : model.layout == 'list' }">
+    <div ng-repeat="day in data.schedule.days" ng-class="{ 'col-md-4' : model.layout == 'grid' }">
     	<div class="panel" ng-class="isToday(day.date) ? 'panel-success' : 'panel-default' ">
     		<div class="panel-heading">{{ day.date | dayFilter }} / {{ day.date | dateFilter }}</div>
     		<div class="panel-body">

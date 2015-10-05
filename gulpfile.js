@@ -34,6 +34,7 @@ var appFonts = [
 // Vendor Files
 var vendorScripts = [
   'app/vendors/jquery/dist/jquery.min.js',
+  'app/vendors/moment/min/moment-with-locales.min.js',
   'app/vendors/angular/angular.js',
   'app/vendors/angular-route/angular-route.js',
   'app/vendors/angular-loading-bar/src/loading-bar.js',

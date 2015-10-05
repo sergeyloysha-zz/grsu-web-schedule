@@ -35,6 +35,13 @@ angular.module('myApp.services', [])
         ]}
       },
 
+      getLayouts: function() {
+        return {"items": [
+          {"id": "list", "icon": "menu-hamburger"},
+          {"id": "grid", "icon": "th"}
+        ]}
+      },
+
       getGroupSchedule: function(group, dates) {
         console.log(dates);
         return $http.get(config.apiUrl + '/getGroupSchedule?groupId=' + group + '&dateStart=' + dates.dateStart + '&dateEnd=' + dates.dateEnd);
