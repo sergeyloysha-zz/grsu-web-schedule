@@ -21,7 +21,15 @@ angular.module('myApp', [
       controller: 'AppCtrl',
       templateUrl: 'assets/views/schedule.html'
     })
+    .when('/test', {
+      controller: 'TestCtrl',
+      templateUrl: 'assets/views/test.html'
+    })
     .otherwise({
       redirectTo: '/schedule'
     })
 }])
+
+.constant('config', {
+  apiUrl: 'http://api.grsu.by/1.x/app1'
+})

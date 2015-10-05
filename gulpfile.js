@@ -42,6 +42,10 @@ var vendorStyles = [
   'app/vendors/bootstrap/dist/css/bootstrap.min.css'
 ];
 
+var vendorFonts = [
+  'app/vendors/bootstrap/dist/fonts/*'
+];
+
 var browser = os.platform() === 'linux' ? 'google-chrome' : (
   os.platform() === 'darwin' ? 'google chrome' : (
   os.platform() === 'win32' ? 'chrome' : 'firefox'));
@@ -79,6 +83,8 @@ gulp.task('vendors', ['bower'], function() {
   gulp.src(vendorStyles)
     .pipe(concat('vendor.css'))
     .pipe(gulp.dest(buildDir + '/assets/styles'))
+  gulp.src(vendorFonts)
+    .pipe(gulp.dest(buildDir + '/assets/fonts'))
 });
 
 // Scripts

@@ -1,13 +1,13 @@
 angular.module('myApp.services', [])
 
-  .factory('storage', ['$http', function($http){
+  .factory('storage', ['$http', 'config', function($http, config){
     return {
       getFaculties: function() {
-        return $http.get('http://api.grsu.by/1.x/app1/getFaculties');
+        return $http.get(config.apiUrl + '/getFaculties');
       },
 
       getDepartments: function() {
-        return $http.get('http://api.grsu.by/1.x/app1/getDepartments');
+        return $http.get(config.apiUrl + '/getDepartments');
       },
 
       getCourses: function() {
@@ -17,12 +17,12 @@ angular.module('myApp.services', [])
           {"id": 3, "title": "3"},
           {"id": 4, "title": "4"},
           {"id": 5, "title": "5"},
-          {"id": 6, "title": "6 курс"}
+          {"id": 6, "title": "6"}
         ]}
       },
 
       getGroups: function(faculty, department, course) {
-        return $http.get('http://api.grsu.by/1.x/app1/getGroups?facultyId='+ faculty +'&departmentId='+ department +'&course='+ course);
+        return $http.get(config.apiUrl + '/getGroups?facultyId='+ faculty +'&departmentId='+ department +'&course='+ course);
       },
 
       getDates: function() {
@@ -30,7 +30,7 @@ angular.module('myApp.services', [])
       },
 
       getGroupSchedule: function(group) {
-        return $http.get('http://api.grsu.by/1.x/app1/getGroupSchedule?groupId=' + group + '&dateStart=21.09.2015&dateEnd=27.09.2015');
+        return $http.get(config.apiUrl + '/getGroupSchedule?groupId=' + group + '&dateStart=05.10.2015&dateEnd=11.10.2015');
       }
     }
   }])
