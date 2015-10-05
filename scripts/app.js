@@ -61,14 +61,16 @@ angular.module('myApp.controllers', [])
       departments: [],
       courses: [],
       groups: [],
-      schedule: []
+      schedule: [],
+      dates: []
     }
 
     $scope.model = {
       faculty: localStorage.getItem('facultyId') || null,
       department: localStorage.getItem('departmentId') || null,
       course: localStorage.getItem('courseId') || null,
-      group: localStorage.getItem('groupId') || null
+      group: localStorage.getItem('groupId') || null,
+      date: localStorage.getItem('dateId') || 1
     }
     
     storage.getFaculties().success(function(response){
@@ -80,6 +82,8 @@ angular.module('myApp.controllers', [])
     })
 
     $scope.data.courses = storage.getCourses().items;
+
+    $scope.data.dates = storage.getDates().items;
 
     $scope.$watchCollection('model', function(values, previous) {
       if(values.faculty && values.department && values.course) {
@@ -97,10 +101,16 @@ angular.module('myApp.controllers', [])
       }
     });
 
+    $scope.$watch('model.date', function(newValue, oldValue) {
+      localStorage.setItem('dateId', newValue);
+    });
+
     $scope.loadGroupSchedule = function() {
-      storage.getGroupSchedule($scope.model.group).success(function(response){
-        $scope.data.schedule = response;
-      })
+      if($scope.model.group != null) {
+        storage.getGroupSchedule($scope.model.group, $scope.setScheduleDates()).success(function(response){
+          $scope.data.schedule = response;
+        })
+      }
     }
 
     $scope.saveGroup = function() {
@@ -115,6 +125,14 @@ angular.module('myApp.controllers', [])
         if($scope.data.groups[i].id == $scope.model.group) {
           return $scope.data.groups[i].title;
         }
+      }
+    }
+
+    $scope.setScheduleDates = function() {
+      if($scope.model.date == 1) {
+        return {'dateStart': '05.10.2015', 'dateEnd':'10.10.2015'}
+      } else if ($scope.model.date == 2) {
+        return {'dateStart': '05.10.2015', 'dateEnd':'05.10.2015'}
       }
     }
 
@@ -155,11 +173,15 @@ angular.module('myApp.services', [])
       },
 
       getDates: function() {
-
+        return {"items": [
+          {"id": 1, "title": "На неделю"},
+          {"id": 2, "title": "Сегодня"}
+        ]}
       },
 
-      getGroupSchedule: function(group) {
-        return $http.get(config.apiUrl + '/getGroupSchedule?groupId=' + group + '&dateStart=05.10.2015&dateEnd=11.10.2015');
+      getGroupSchedule: function(group, dates) {
+        console.log(dates);
+        return $http.get(config.apiUrl + '/getGroupSchedule?groupId=' + group + '&dateStart=' + dates.dateStart + '&dateEnd=' + dates.dateEnd);
       }
     }
   }])
