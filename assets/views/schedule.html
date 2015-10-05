@@ -61,6 +61,13 @@
 					    	<span class="glyphicon glyphicon-th"></span>
 					    </button>
 					  </div>
+					  <div class="btn-group pull-right">
+			        <label class="btn btn-default"
+			        	ng-repeat="date in data.dates"
+			        	ng-class="{active:date.id==$parent.model.date}">
+			            <input type="radio" name="course" ng-model="$parent.model.date" ng-click="loadGroupSchedule()" value="{{date.id}}"/> {{ date.title }}
+			        </label>
+			    	</div>
 					  <button type="button" class="btn btn-default pull-right" ng-show="model.group" ng-click="saveGroup()">Это моя группа</button>
 				</div>
 			</div>

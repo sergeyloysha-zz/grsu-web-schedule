@@ -29,11 +29,15 @@ angular.module('myApp.services', [])
       },
 
       getDates: function() {
-
+        return {"items": [
+          {"id": 1, "title": "На неделю"},
+          {"id": 2, "title": "Сегодня"}
+        ]}
       },
 
-      getGroupSchedule: function(group) {
-        return $http.get(config.apiUrl + '/getGroupSchedule?groupId=' + group + '&dateStart=05.10.2015&dateEnd=11.10.2015');
+      getGroupSchedule: function(group, dates) {
+        console.log(dates);
+        return $http.get(config.apiUrl + '/getGroupSchedule?groupId=' + group + '&dateStart=' + dates.dateStart + '&dateEnd=' + dates.dateEnd);
       }
     }
   }])
