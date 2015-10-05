@@ -82,12 +82,14 @@ angular.module('myApp.controllers', [])
 
     $scope.$watchCollection('model', function(values, previous) {
       if(values.faculty && values.department && values.course) {
+        $log.log(values.faculty + ' ' + values.department + ' ' + values.course + ' ' + values.group)
         storage.getGroups(values.faculty, values.department, values.course).success(function(response){
           $scope.data.groups = response.items;
         })
       }
 
       if(values.faculty && values.department && values.course && values.group) {
+        if(values.group != null && values.group != 'null')
         $scope.loadGroupSchedule();
       }
     });
