@@ -42,47 +42,52 @@
 	</div>
 </div>
 
-<div class="container">
-  
-  <!--
-  <button class="btn btn-primary" 
-  	ng-disabled="model.group == null"
-		ng-click="loadGroupSchedule()">Показать</button>
-	-->
-		
-	<div class="row">
-	  <div class="col-md-12">
-	  	<div class="panel panel-default">
-				<div class="panel-body">
-				<h5 class="pull-left" ng-show="data.schedule.length == 0">Нет расписания для отображения</h5>
-				<h5 class="pull-left" ng-hide="data.schedule.length == 0">Расписание для <span ng-bind="getGroupName()"></span></h5>
-				<div class="btn-group pull-right">
-			    <button type="button" class="btn btn-default"
-			    	ng-class="{active: isLayout('list')}"
-			    	ng-click="setLayout('list')">
-			    	<span class="glyphicon glyphicon-menu-hamburger"></span>
-			    </button>
-			    <button type="button" class="btn btn-default"
-			    	ng-class="{active: isLayout('grid')}"
-			    	ng-click="setLayout('grid')">
-			    	<span class="glyphicon glyphicon-th"></span>
-			    </button>
-			  </div>
-			  <button type="button" class="btn btn-default pull-right" ng-show="model.group" ng-click="saveGroup()">Это моя группа</button>
+<div class="postfilter">
+	<div class="postfilter-body">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h5 class="pull-left" ng-show="data.schedule.length == 0">Нет расписания для отображения</h5>
+						<h5 class="pull-left" ng-hide="data.schedule.length == 0">Расписание для <span ng-bind="getGroupName()"></span></h5>
+						<div class="btn-group pull-right">
+					    <button type="button" class="btn btn-default"
+					    	ng-class="{active: isLayout('list')}"
+					    	ng-click="setLayout('list')">
+					    	<span class="glyphicon glyphicon-menu-hamburger"></span>
+					    </button>
+					    <button type="button" class="btn btn-default"
+					    	ng-class="{active: isLayout('grid')}"
+					    	ng-click="setLayout('grid')">
+					    	<span class="glyphicon glyphicon-th"></span>
+					    </button>
+					  </div>
+					  <button type="button" class="btn btn-default pull-right" ng-show="model.group" ng-click="saveGroup()">Это моя группа</button>
+				</div>
 			</div>
 	  </div>
 	</div>
+</div>
+
+<div class="container">
+  
+  
+  <button class="debug btn btn-primary"
+  	ng-disabled="model.group == null"
+		ng-click="loadGroupSchedule()">Показать</button>
 	
-	<div class="row">
-		<div class="col-md-12" ng-class="{ 'grid' : isLayout('grid') , 'list' : isLayout('list') }">
-      <div ng-repeat="day in data.schedule.days" ng-class="{ 'col-md-4' : isLayout('grid')}">
-      	<div class="panel" ng-class="isToday(day.date) ? 'panel-success' : 'panel-default' ">
-      		<div class="panel-heading">{{ day.date | dayFilter }} / {{ day.date | dateFilter }}</div>
-      		<div class="panel-body">
-      			{{ day }}
-      		</div>
-      	</div>
-      </div>
+	<div class="col-md-12" ng-class="{ 'grid' : isLayout('grid') , 'list' : isLayout('list') }">
+    <div ng-repeat="day in data.schedule.days" ng-class="{ 'col-md-4' : isLayout('grid')}">
+    	<div class="panel" ng-class="isToday(day.date) ? 'panel-success' : 'panel-default' ">
+    		<div class="panel-heading">{{ day.date | dayFilter }} / {{ day.date | dateFilter }}</div>
+    		<div class="panel-body">
+    			<div ng-repeat="lesson in day.lessons">
+    				<span>{{ lesson.timeStart }} - {{ lesson.timeEnd }}</span>
+    				<span>{{ lesson.type }} {{ lesson.title }}</span>
+    				<span>{{ lesson.teacher.fullname }}</span>
+    				<hr>
+    			</div>
+    		</div>
+    	</div>
     </div>
   </div>
 </div>
