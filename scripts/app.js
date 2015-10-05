@@ -21,14 +21,39 @@ angular.module('myApp', [
       controller: 'AppCtrl',
       templateUrl: 'assets/views/schedule.html'
     })
+    .when('/test', {
+      controller: 'TestCtrl',
+      templateUrl: 'assets/views/test.html'
+    })
     .otherwise({
       redirectTo: '/schedule'
     })
 }])
 
+.constant('config', {
+  apiUrl: 'http://api.grsu.by/1.x/app1'
+})
 angular.module('myApp.controllers', [])
 
   .controller('AppCtrl', ['$scope', '$log', '$routeParams', 'storage', function($scope, $log, $routeParams, storage) {
+
+    var today = new Date();
+
+    $scope.layout = localStorage.getItem('layout') || 'list';
+
+    $scope.setLayout = function (layout) {
+        $scope.layout = layout;
+        localStorage.setItem('layout', layout);
+    };
+
+    $scope.isLayout = function (layout) {
+        return $scope.layout == layout;
+    };
+
+    $scope.isToday = function(input) {
+      var day = new Date(input);
+      return day.toDateString() == today.toDateString();
+    }
 
     $scope.data = {
       faculties: [],
@@ -39,9 +64,10 @@ angular.module('myApp.controllers', [])
     }
 
     $scope.model = {
-      faculty: null,
-      department: null,
-      course: null
+      faculty: localStorage.getItem('facultyId') || null,
+      department: localStorage.getItem('departmentId') || null,
+      course: localStorage.getItem('courseId') || null,
+      group: localStorage.getItem('groupId') || null
     }
     
     storage.getFaculties().success(function(response){
@@ -60,6 +86,10 @@ angular.module('myApp.controllers', [])
           $scope.data.groups = response.items;
         })
       }
+
+      if(values.faculty && values.department && values.course && values.group) {
+        $scope.loadGroupSchedule();
+      }
     });
 
     $scope.loadGroupSchedule = function() {
@@ -69,18 +99,29 @@ angular.module('myApp.controllers', [])
       })
     }
 
+    $scope.saveGroup = function() {
+      localStorage.setItem('facultyId', $scope.model.faculty);
+      localStorage.setItem('departmentId', $scope.model.department);
+      localStorage.setItem('courseId', $scope.model.course);
+      localStorage.setItem('groupId', $scope.model.group);
+    }
+
   }])
+
+  .controller('TestCtrl', ['$scope', '$log', 'storage', function($scope, $log, storage) {
+    $scope.text = 'Тест'
+  }]);
 angular.module('myApp.directives', []);
 angular.module('myApp.services', [])
 
-  .factory('storage', ['$http', function($http){
+  .factory('storage', ['$http', 'config', function($http, config){
     return {
       getFaculties: function() {
-        return $http.get('http://api.grsu.by/1.x/app1/getFaculties');
+        return $http.get(config.apiUrl + '/getFaculties');
       },
 
       getDepartments: function() {
-        return $http.get('http://api.grsu.by/1.x/app1/getDepartments');
+        return $http.get(config.apiUrl + '/getDepartments');
       },
 
       getCourses: function() {
@@ -90,12 +131,12 @@ angular.module('myApp.services', [])
           {"id": 3, "title": "3"},
           {"id": 4, "title": "4"},
           {"id": 5, "title": "5"},
-          {"id": 6, "title": "6 курс"}
+          {"id": 6, "title": "6"}
         ]}
       },
 
       getGroups: function(faculty, department, course) {
-        return $http.get('http://api.grsu.by/1.x/app1/getGroups?facultyId='+ faculty +'&departmentId='+ department +'&course='+ course);
+        return $http.get(config.apiUrl + '/getGroups?facultyId='+ faculty +'&departmentId='+ department +'&course='+ course);
       },
 
       getDates: function() {
@@ -103,7 +144,7 @@ angular.module('myApp.services', [])
       },
 
       getGroupSchedule: function(group) {
-        return $http.get('http://api.grsu.by/1.x/app1/getGroupSchedule?groupId=' + group + '&dateStart=21.09.2015&dateEnd=27.09.2015');
+        return $http.get(config.apiUrl + '/getGroupSchedule?groupId=' + group + '&dateStart=05.10.2015&dateEnd=11.10.2015');
       }
     }
   }])

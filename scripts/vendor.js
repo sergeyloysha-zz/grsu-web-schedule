@@ -4,7 +4,7 @@ return M.access(a,b,c)},removeData:function(a,b){M.remove(a,b)},_data:function(a
 void 0===c?d&&"get"in d&&null!==(e=d.get(a,b))?e:(e=n.find.attr(a,b),null==e?void 0:e):null!==c?d&&"set"in d&&void 0!==(e=d.set(a,c,b))?e:(a.setAttribute(b,c+""),c):void n.removeAttr(a,b))},removeAttr:function(a,b){var c,d,e=0,f=b&&b.match(E);if(f&&1===a.nodeType)while(c=f[e++])d=n.propFix[c]||c,n.expr.match.bool.test(c)&&(a[d]=!1),a.removeAttribute(c)},attrHooks:{type:{set:function(a,b){if(!k.radioValue&&"radio"===b&&n.nodeName(a,"input")){var c=a.value;return a.setAttribute("type",b),c&&(a.value=c),b}}}}}),Za={set:function(a,b,c){return b===!1?n.removeAttr(a,c):a.setAttribute(c,c),c}},n.each(n.expr.match.bool.source.match(/\w+/g),function(a,b){var c=$a[b]||n.find.attr;$a[b]=function(a,b,d){var e,f;return d||(f=$a[b],$a[b]=e,e=null!=c(a,b,d)?b.toLowerCase():null,$a[b]=f),e}});var _a=/^(?:input|select|textarea|button)$/i;n.fn.extend({prop:function(a,b){return J(this,n.prop,a,b,arguments.length>1)},removeProp:function(a){return this.each(function(){delete this[n.propFix[a]||a]})}}),n.extend({propFix:{"for":"htmlFor","class":"className"},prop:function(a,b,c){var d,e,f,g=a.nodeType;if(a&&3!==g&&8!==g&&2!==g)return f=1!==g||!n.isXMLDoc(a),f&&(b=n.propFix[b]||b,e=n.propHooks[b]),void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&&"get"in e&&null!==(d=e.get(a,b))?d:a[b]},propHooks:{tabIndex:{get:function(a){return a.hasAttribute("tabindex")||_a.test(a.nodeName)||a.href?a.tabIndex:-1}}}}),k.optSelected||(n.propHooks.selected={get:function(a){var b=a.parentNode;return b&&b.parentNode&&b.parentNode.selectedIndex,null}}),n.each(["tabIndex","readOnly","maxLength","cellSpacing","cellPadding","rowSpan","colSpan","useMap","frameBorder","contentEditable"],function(){n.propFix[this.toLowerCase()]=this});var ab=/[\t\r\n\f]/g;n.fn.extend({addClass:function(a){var b,c,d,e,f,g,h="string"==typeof a&&a,i=0,j=this.length;if(n.isFunction(a))return this.each(function(b){n(this).addClass(a.call(this,b,this.className))});if(h)for(b=(a||"").match(E)||[];j>i;i++)if(c=this[i],d=1===c.nodeType&&(c.className?(" "+c.className+" ").replace(ab," "):" ")){f=0;while(e=b[f++])d.indexOf(" "+e+" ")<0&&(d+=e+" ");g=n.trim(d),c.className!==g&&(c.className=g)}return this},removeClass:function(a){var b,c,d,e,f,g,h=0===arguments.length||"string"==typeof a&&a,i=0,j=this.length;if(n.isFunction(a))return this.each(function(b){n(this).removeClass(a.call(this,b,this.className))});if(h)for(b=(a||"").match(E)||[];j>i;i++)if(c=this[i],d=1===c.nodeType&&(c.className?(" "+c.className+" ").replace(ab," "):"")){f=0;while(e=b[f++])while(d.indexOf(" "+e+" ")>=0)d=d.replace(" "+e+" "," ");g=a?n.trim(d):"",c.className!==g&&(c.className=g)}return this},toggleClass:function(a,b){var c=typeof a;return"boolean"==typeof b&&"string"===c?b?this.addClass(a):this.removeClass(a):this.each(n.isFunction(a)?function(c){n(this).toggleClass(a.call(this,c,this.className,b),b)}:function(){if("string"===c){var b,d=0,e=n(this),f=a.match(E)||[];while(b=f[d++])e.hasClass(b)?e.removeClass(b):e.addClass(b)}else(c===U||"boolean"===c)&&(this.className&&L.set(this,"__className__",this.className),this.className=this.className||a===!1?"":L.get(this,"__className__")||"")})},hasClass:function(a){for(var b=" "+a+" ",c=0,d=this.length;d>c;c++)if(1===this[c].nodeType&&(" "+this[c].className+" ").replace(ab," ").indexOf(b)>=0)return!0;return!1}});var bb=/\r/g;n.fn.extend({val:function(a){var b,c,d,e=this[0];{if(arguments.length)return d=n.isFunction(a),this.each(function(c){var e;1===this.nodeType&&(e=d?a.call(this,c,n(this).val()):a,null==e?e="":"number"==typeof e?e+="":n.isArray(e)&&(e=n.map(e,function(a){return null==a?"":a+""})),b=n.valHooks[this.type]||n.valHooks[this.nodeName.toLowerCase()],b&&"set"in b&&void 0!==b.set(this,e,"value")||(this.value=e))});if(e)return b=n.valHooks[e.type]||n.valHooks[e.nodeName.toLowerCase()],b&&"get"in b&&void 0!==(c=b.get(e,"value"))?c:(c=e.value,"string"==typeof c?c.replace(bb,""):null==c?"":c)}}}),n.extend({valHooks:{option:{get:function(a){var b=n.find.attr(a,"value");return null!=b?b:n.trim(n.text(a))}},select:{get:function(a){for(var b,c,d=a.options,e=a.selectedIndex,f="select-one"===a.type||0>e,g=f?null:[],h=f?e+1:d.length,i=0>e?h:f?e:0;h>i;i++)if(c=d[i],!(!c.selected&&i!==e||(k.optDisabled?c.disabled:null!==c.getAttribute("disabled"))||c.parentNode.disabled&&n.nodeName(c.parentNode,"optgroup"))){if(b=n(c).val(),f)return b;g.push(b)}return g},set:function(a,b){var c,d,e=a.options,f=n.makeArray(b),g=e.length;while(g--)d=e[g],(d.selected=n.inArray(d.value,f)>=0)&&(c=!0);return c||(a.selectedIndex=-1),f}}}}),n.each(["radio","checkbox"],function(){n.valHooks[this]={set:function(a,b){return n.isArray(b)?a.checked=n.inArray(n(a).val(),b)>=0:void 0}},k.checkOn||(n.valHooks[this].get=function(a){return null===a.getAttribute("value")?"on":a.value})}),n.each("blur focus focusin focusout load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup error contextmenu".split(" "),function(a,b){n.fn[b]=function(a,c){return arguments.length>0?this.on(b,null,a,c):this.trigger(b)}}),n.fn.extend({hover:function(a,b){return this.mouseenter(a).mouseleave(b||a)},bind:function(a,b,c){return this.on(a,null,b,c)},unbind:function(a,b){return this.off(a,null,b)},delegate:function(a,b,c,d){return this.on(b,a,c,d)},undelegate:function(a,b,c){return 1===arguments.length?this.off(a,"**"):this.off(b,a||"**",c)}});var cb=n.now(),db=/\?/;n.parseJSON=function(a){return JSON.parse(a+"")},n.parseXML=function(a){var b,c;if(!a||"string"!=typeof a)return null;try{c=new DOMParser,b=c.parseFromString(a,"text/xml")}catch(d){b=void 0}return(!b||b.getElementsByTagName("parsererror").length)&&n.error("Invalid XML: "+a),b};var eb=/#.*$/,fb=/([?&])_=[^&]*/,gb=/^(.*?):[ \t]*([^\r\n]*)$/gm,hb=/^(?:about|app|app-storage|.+-extension|file|res|widget):$/,ib=/^(?:GET|HEAD)$/,jb=/^\/\//,kb=/^([\w.+-]+:)(?:\/\/(?:[^\/?#]*@|)([^\/?#:]*)(?::(\d+)|)|)/,lb={},mb={},nb="*/".concat("*"),ob=a.location.href,pb=kb.exec(ob.toLowerCase())||[];function qb(a){return function(b,c){"string"!=typeof b&&(c=b,b="*");var d,e=0,f=b.toLowerCase().match(E)||[];if(n.isFunction(c))while(d=f[e++])"+"===d[0]?(d=d.slice(1)||"*",(a[d]=a[d]||[]).unshift(c)):(a[d]=a[d]||[]).push(c)}}function rb(a,b,c,d){var e={},f=a===mb;function g(h){var i;return e[h]=!0,n.each(a[h]||[],function(a,h){var j=h(b,c,d);return"string"!=typeof j||f||e[j]?f?!(i=j):void 0:(b.dataTypes.unshift(j),g(j),!1)}),i}return g(b.dataTypes[0])||!e["*"]&&g("*")}function sb(a,b){var c,d,e=n.ajaxSettings.flatOptions||{};for(c in b)void 0!==b[c]&&((e[c]?a:d||(d={}))[c]=b[c]);return d&&n.extend(!0,a,d),a}function tb(a,b,c){var d,e,f,g,h=a.contents,i=a.dataTypes;while("*"===i[0])i.shift(),void 0===d&&(d=a.mimeType||b.getResponseHeader("Content-Type"));if(d)for(e in h)if(h[e]&&h[e].test(d)){i.unshift(e);break}if(i[0]in c)f=i[0];else{for(e in c){if(!i[0]||a.converters[e+" "+i[0]]){f=e;break}g||(g=e)}f=f||g}return f?(f!==i[0]&&i.unshift(f),c[f]):void 0}function ub(a,b,c,d){var e,f,g,h,i,j={},k=a.dataTypes.slice();if(k[1])for(g in a.converters)j[g.toLowerCase()]=a.converters[g];f=k.shift();while(f)if(a.responseFields[f]&&(c[a.responseFields[f]]=b),!i&&d&&a.dataFilter&&(b=a.dataFilter(b,a.dataType)),i=f,f=k.shift())if("*"===f)f=i;else if("*"!==i&&i!==f){if(g=j[i+" "+f]||j["* "+f],!g)for(e in j)if(h=e.split(" "),h[1]===f&&(g=j[i+" "+h[0]]||j["* "+h[0]])){g===!0?g=j[e]:j[e]!==!0&&(f=h[0],k.unshift(h[1]));break}if(g!==!0)if(g&&a["throws"])b=g(b);else try{b=g(b)}catch(l){return{state:"parsererror",error:g?l:"No conversion from "+i+" to "+f}}}return{state:"success",data:b}}n.extend({active:0,lastModified:{},etag:{},ajaxSettings:{url:ob,type:"GET",isLocal:hb.test(pb[1]),global:!0,processData:!0,async:!0,contentType:"application/x-www-form-urlencoded; charset=UTF-8",accepts:{"*":nb,text:"text/plain",html:"text/html",xml:"application/xml, text/xml",json:"application/json, text/javascript"},contents:{xml:/xml/,html:/html/,json:/json/},responseFields:{xml:"responseXML",text:"responseText",json:"responseJSON"},converters:{"* text":String,"text html":!0,"text json":n.parseJSON,"text xml":n.parseXML},flatOptions:{url:!0,context:!0}},ajaxSetup:function(a,b){return b?sb(sb(a,n.ajaxSettings),b):sb(n.ajaxSettings,a)},ajaxPrefilter:qb(lb),ajaxTransport:qb(mb),ajax:function(a,b){"object"==typeof a&&(b=a,a=void 0),b=b||{};var c,d,e,f,g,h,i,j,k=n.ajaxSetup({},b),l=k.context||k,m=k.context&&(l.nodeType||l.jquery)?n(l):n.event,o=n.Deferred(),p=n.Callbacks("once memory"),q=k.statusCode||{},r={},s={},t=0,u="canceled",v={readyState:0,getResponseHeader:function(a){var b;if(2===t){if(!f){f={};while(b=gb.exec(e))f[b[1].toLowerCase()]=b[2]}b=f[a.toLowerCase()]}return null==b?null:b},getAllResponseHeaders:function(){return 2===t?e:null},setRequestHeader:function(a,b){var c=a.toLowerCase();return t||(a=s[c]=s[c]||a,r[a]=b),this},overrideMimeType:function(a){return t||(k.mimeType=a),this},statusCode:function(a){var b;if(a)if(2>t)for(b in a)q[b]=[q[b],a[b]];else v.always(a[v.status]);return this},abort:function(a){var b=a||u;return c&&c.abort(b),x(0,b),this}};if(o.promise(v).complete=p.add,v.success=v.done,v.error=v.fail,k.url=((a||k.url||ob)+"").replace(eb,"").replace(jb,pb[1]+"//"),k.type=b.method||b.type||k.method||k.type,k.dataTypes=n.trim(k.dataType||"*").toLowerCase().match(E)||[""],null==k.crossDomain&&(h=kb.exec(k.url.toLowerCase()),k.crossDomain=!(!h||h[1]===pb[1]&&h[2]===pb[2]&&(h[3]||("http:"===h[1]?"80":"443"))===(pb[3]||("http:"===pb[1]?"80":"443")))),k.data&&k.processData&&"string"!=typeof k.data&&(k.data=n.param(k.data,k.traditional)),rb(lb,k,b,v),2===t)return v;i=n.event&&k.global,i&&0===n.active++&&n.event.trigger("ajaxStart"),k.type=k.type.toUpperCase(),k.hasContent=!ib.test(k.type),d=k.url,k.hasContent||(k.data&&(d=k.url+=(db.test(d)?"&":"?")+k.data,delete k.data),k.cache===!1&&(k.url=fb.test(d)?d.replace(fb,"$1_="+cb++):d+(db.test(d)?"&":"?")+"_="+cb++)),k.ifModified&&(n.lastModified[d]&&v.setRequestHeader("If-Modified-Since",n.lastModified[d]),n.etag[d]&&v.setRequestHeader("If-None-Match",n.etag[d])),(k.data&&k.hasContent&&k.contentType!==!1||b.contentType)&&v.setRequestHeader("Content-Type",k.contentType),v.setRequestHeader("Accept",k.dataTypes[0]&&k.accepts[k.dataTypes[0]]?k.accepts[k.dataTypes[0]]+("*"!==k.dataTypes[0]?", "+nb+"; q=0.01":""):k.accepts["*"]);for(j in k.headers)v.setRequestHeader(j,k.headers[j]);if(k.beforeSend&&(k.beforeSend.call(l,v,k)===!1||2===t))return v.abort();u="abort";for(j in{success:1,error:1,complete:1})v[j](k[j]);if(c=rb(mb,k,b,v)){v.readyState=1,i&&m.trigger("ajaxSend",[v,k]),k.async&&k.timeout>0&&(g=setTimeout(function(){v.abort("timeout")},k.timeout));try{t=1,c.send(r,x)}catch(w){if(!(2>t))throw w;x(-1,w)}}else x(-1,"No Transport");function x(a,b,f,h){var j,r,s,u,w,x=b;2!==t&&(t=2,g&&clearTimeout(g),c=void 0,e=h||"",v.readyState=a>0?4:0,j=a>=200&&300>a||304===a,f&&(u=tb(k,v,f)),u=ub(k,u,v,j),j?(k.ifModified&&(w=v.getResponseHeader("Last-Modified"),w&&(n.lastModified[d]=w),w=v.getResponseHeader("etag"),w&&(n.etag[d]=w)),204===a||"HEAD"===k.type?x="nocontent":304===a?x="notmodified":(x=u.state,r=u.data,s=u.error,j=!s)):(s=x,(a||!x)&&(x="error",0>a&&(a=0))),v.status=a,v.statusText=(b||x)+"",j?o.resolveWith(l,[r,x,v]):o.rejectWith(l,[v,x,s]),v.statusCode(q),q=void 0,i&&m.trigger(j?"ajaxSuccess":"ajaxError",[v,k,j?r:s]),p.fireWith(l,[v,x]),i&&(m.trigger("ajaxComplete",[v,k]),--n.active||n.event.trigger("ajaxStop")))}return v},getJSON:function(a,b,c){return n.get(a,b,c,"json")},getScript:function(a,b){return n.get(a,void 0,b,"script")}}),n.each(["get","post"],function(a,b){n[b]=function(a,c,d,e){return n.isFunction(c)&&(e=e||d,d=c,c=void 0),n.ajax({url:a,type:b,dataType:e,data:c,success:d})}}),n._evalUrl=function(a){return n.ajax({url:a,type:"GET",dataType:"script",async:!1,global:!1,"throws":!0})},n.fn.extend({wrapAll:function(a){var b;return n.isFunction(a)?this.each(function(b){n(this).wrapAll(a.call(this,b))}):(this[0]&&(b=n(a,this[0].ownerDocument).eq(0).clone(!0),this[0].parentNode&&b.insertBefore(this[0]),b.map(function(){var a=this;while(a.firstElementChild)a=a.firstElementChild;return a}).append(this)),this)},wrapInner:function(a){return this.each(n.isFunction(a)?function(b){n(this).wrapInner(a.call(this,b))}:function(){var b=n(this),c=b.contents();c.length?c.wrapAll(a):b.append(a)})},wrap:function(a){var b=n.isFunction(a);return this.each(function(c){n(this).wrapAll(b?a.call(this,c):a)})},unwrap:function(){return this.parent().each(function(){n.nodeName(this,"body")||n(this).replaceWith(this.childNodes)}).end()}}),n.expr.filters.hidden=function(a){return a.offsetWidth<=0&&a.offsetHeight<=0},n.expr.filters.visible=function(a){return!n.expr.filters.hidden(a)};var vb=/%20/g,wb=/\[\]$/,xb=/\r?\n/g,yb=/^(?:submit|button|image|reset|file)$/i,zb=/^(?:input|select|textarea|keygen)/i;function Ab(a,b,c,d){var e;if(n.isArray(b))n.each(b,function(b,e){c||wb.test(a)?d(a,e):Ab(a+"["+("object"==typeof e?b:"")+"]",e,c,d)});else if(c||"object"!==n.type(b))d(a,b);else for(e in b)Ab(a+"["+e+"]",b[e],c,d)}n.param=function(a,b){var c,d=[],e=function(a,b){b=n.isFunction(b)?b():null==b?"":b,d[d.length]=encodeURIComponent(a)+"="+encodeURIComponent(b)};if(void 0===b&&(b=n.ajaxSettings&&n.ajaxSettings.traditional),n.isArray(a)||a.jquery&&!n.isPlainObject(a))n.each(a,function(){e(this.name,this.value)});else for(c in a)Ab(c,a[c],b,e);return d.join("&").replace(vb,"+")},n.fn.extend({serialize:function(){return n.param(this.serializeArray())},serializeArray:function(){return this.map(function(){var a=n.prop(this,"elements");return a?n.makeArray(a):this}).filter(function(){var a=this.type;return this.name&&!n(this).is(":disabled")&&zb.test(this.nodeName)&&!yb.test(a)&&(this.checked||!T.test(a))}).map(function(a,b){var c=n(this).val();return null==c?null:n.isArray(c)?n.map(c,function(a){return{name:b.name,value:a.replace(xb,"\r\n")}}):{name:b.name,value:c.replace(xb,"\r\n")}}).get()}}),n.ajaxSettings.xhr=function(){try{return new XMLHttpRequest}catch(a){}};var Bb=0,Cb={},Db={0:200,1223:204},Eb=n.ajaxSettings.xhr();a.attachEvent&&a.attachEvent("onunload",function(){for(var a in Cb)Cb[a]()}),k.cors=!!Eb&&"withCredentials"in Eb,k.ajax=Eb=!!Eb,n.ajaxTransport(function(a){var b;return k.cors||Eb&&!a.crossDomain?{send:function(c,d){var e,f=a.xhr(),g=++Bb;if(f.open(a.type,a.url,a.async,a.username,a.password),a.xhrFields)for(e in a.xhrFields)f[e]=a.xhrFields[e];a.mimeType&&f.overrideMimeType&&f.overrideMimeType(a.mimeType),a.crossDomain||c["X-Requested-With"]||(c["X-Requested-With"]="XMLHttpRequest");for(e in c)f.setRequestHeader(e,c[e]);b=function(a){return function(){b&&(delete Cb[g],b=f.onload=f.onerror=null,"abort"===a?f.abort():"error"===a?d(f.status,f.statusText):d(Db[f.status]||f.status,f.statusText,"string"==typeof f.responseText?{text:f.responseText}:void 0,f.getAllResponseHeaders()))}},f.onload=b(),f.onerror=b("error"),b=Cb[g]=b("abort");try{f.send(a.hasContent&&a.data||null)}catch(h){if(b)throw h}},abort:function(){b&&b()}}:void 0}),n.ajaxSetup({accepts:{script:"text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"},contents:{script:/(?:java|ecma)script/},converters:{"text script":function(a){return n.globalEval(a),a}}}),n.ajaxPrefilter("script",function(a){void 0===a.cache&&(a.cache=!1),a.crossDomain&&(a.type="GET")}),n.ajaxTransport("script",function(a){if(a.crossDomain){var b,c;return{send:function(d,e){b=n("<script>").prop({async:!0,charset:a.scriptCharset,src:a.url}).on("load error",c=function(a){b.remove(),c=null,a&&e("error"===a.type?404:200,a.type)}),l.head.appendChild(b[0])},abort:function(){c&&c()}}}});var Fb=[],Gb=/(=)\?(?=&|$)|\?\?/;n.ajaxSetup({jsonp:"callback",jsonpCallback:function(){var a=Fb.pop()||n.expando+"_"+cb++;return this[a]=!0,a}}),n.ajaxPrefilter("json jsonp",function(b,c,d){var e,f,g,h=b.jsonp!==!1&&(Gb.test(b.url)?"url":"string"==typeof b.data&&!(b.contentType||"").indexOf("application/x-www-form-urlencoded")&&Gb.test(b.data)&&"data");return h||"jsonp"===b.dataTypes[0]?(e=b.jsonpCallback=n.isFunction(b.jsonpCallback)?b.jsonpCallback():b.jsonpCallback,h?b[h]=b[h].replace(Gb,"$1"+e):b.jsonp!==!1&&(b.url+=(db.test(b.url)?"&":"?")+b.jsonp+"="+e),b.converters["script json"]=function(){return g||n.error(e+" was not called"),g[0]},b.dataTypes[0]="json",f=a[e],a[e]=function(){g=arguments},d.always(function(){a[e]=f,b[e]&&(b.jsonpCallback=c.jsonpCallback,Fb.push(e)),g&&n.isFunction(f)&&f(g[0]),g=f=void 0}),"script"):void 0}),n.parseHTML=function(a,b,c){if(!a||"string"!=typeof a)return null;"boolean"==typeof b&&(c=b,b=!1),b=b||l;var d=v.exec(a),e=!c&&[];return d?[b.createElement(d[1])]:(d=n.buildFragment([a],b,e),e&&e.length&&n(e).remove(),n.merge([],d.childNodes))};var Hb=n.fn.load;n.fn.load=function(a,b,c){if("string"!=typeof a&&Hb)return Hb.apply(this,arguments);var d,e,f,g=this,h=a.indexOf(" ");return h>=0&&(d=n.trim(a.slice(h)),a=a.slice(0,h)),n.isFunction(b)?(c=b,b=void 0):b&&"object"==typeof b&&(e="POST"),g.length>0&&n.ajax({url:a,type:e,dataType:"html",data:b}).done(function(a){f=arguments,g.html(d?n("<div>").append(n.parseHTML(a)).find(d):a)}).complete(c&&function(a,b){g.each(c,f||[a.responseText,b,a])}),this},n.each(["ajaxStart","ajaxStop","ajaxComplete","ajaxError","ajaxSuccess","ajaxSend"],function(a,b){n.fn[b]=function(a){return this.on(b,a)}}),n.expr.filters.animated=function(a){return n.grep(n.timers,function(b){return a===b.elem}).length};var Ib=a.document.documentElement;function Jb(a){return n.isWindow(a)?a:9===a.nodeType&&a.defaultView}n.offset={setOffset:function(a,b,c){var d,e,f,g,h,i,j,k=n.css(a,"position"),l=n(a),m={};"static"===k&&(a.style.position="relative"),h=l.offset(),f=n.css(a,"top"),i=n.css(a,"left"),j=("absolute"===k||"fixed"===k)&&(f+i).indexOf("auto")>-1,j?(d=l.position(),g=d.top,e=d.left):(g=parseFloat(f)||0,e=parseFloat(i)||0),n.isFunction(b)&&(b=b.call(a,c,h)),null!=b.top&&(m.top=b.top-h.top+g),null!=b.left&&(m.left=b.left-h.left+e),"using"in b?b.using.call(a,m):l.css(m)}},n.fn.extend({offset:function(a){if(arguments.length)return void 0===a?this:this.each(function(b){n.offset.setOffset(this,a,b)});var b,c,d=this[0],e={top:0,left:0},f=d&&d.ownerDocument;if(f)return b=f.documentElement,n.contains(b,d)?(typeof d.getBoundingClientRect!==U&&(e=d.getBoundingClientRect()),c=Jb(f),{top:e.top+c.pageYOffset-b.clientTop,left:e.left+c.pageXOffset-b.clientLeft}):e},position:function(){if(this[0]){var a,b,c=this[0],d={top:0,left:0};return"fixed"===n.css(c,"position")?b=c.getBoundingClientRect():(a=this.offsetParent(),b=this.offset(),n.nodeName(a[0],"html")||(d=a.offset()),d.top+=n.css(a[0],"borderTopWidth",!0),d.left+=n.css(a[0],"borderLeftWidth",!0)),{top:b.top-d.top-n.css(c,"marginTop",!0),left:b.left-d.left-n.css(c,"marginLeft",!0)}}},offsetParent:function(){return this.map(function(){var a=this.offsetParent||Ib;while(a&&!n.nodeName(a,"html")&&"static"===n.css(a,"position"))a=a.offsetParent;return a||Ib})}}),n.each({scrollLeft:"pageXOffset",scrollTop:"pageYOffset"},function(b,c){var d="pageYOffset"===c;n.fn[b]=function(e){return J(this,function(b,e,f){var g=Jb(b);return void 0===f?g?g[c]:b[e]:void(g?g.scrollTo(d?a.pageXOffset:f,d?f:a.pageYOffset):b[e]=f)},b,e,arguments.length,null)}}),n.each(["top","left"],function(a,b){n.cssHooks[b]=ya(k.pixelPosition,function(a,c){return c?(c=xa(a,b),va.test(c)?n(a).position()[b]+"px":c):void 0})}),n.each({Height:"height",Width:"width"},function(a,b){n.each({padding:"inner"+a,content:b,"":"outer"+a},function(c,d){n.fn[d]=function(d,e){var f=arguments.length&&(c||"boolean"!=typeof d),g=c||(d===!0||e===!0?"margin":"border");return J(this,function(b,c,d){var e;return n.isWindow(b)?b.document.documentElement["client"+a]:9===b.nodeType?(e=b.documentElement,Math.max(b.body["scroll"+a],e["scroll"+a],b.body["offset"+a],e["offset"+a],e["client"+a])):void 0===d?n.css(b,c,g):n.style(b,c,d,g)},b,f?d:void 0,f,null)}})}),n.fn.size=function(){return this.length},n.fn.andSelf=n.fn.addBack,"function"==typeof define&&define.amd&&define("jquery",[],function(){return n});var Kb=a.jQuery,Lb=a.$;return n.noConflict=function(b){return a.$===n&&(a.$=Lb),b&&a.jQuery===n&&(a.jQuery=Kb),n},typeof b===U&&(a.jQuery=a.$=n),n});
 //# sourceMappingURL=jquery.min.map
 /**
- * @license AngularJS v1.4.6
+ * @license AngularJS v1.4.7
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -62,7 +62,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message += '\nhttp://errors.angularjs.org/1.4.6/' +
+    message += '\nhttp://errors.angularjs.org/1.4.7/' +
       (module ? module + '/' : '') + code;
 
     for (i = SKIP_INDEXES, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
@@ -2346,6 +2346,7 @@ function toDebugString(obj) {
   $HttpParamSerializerProvider,
   $HttpParamSerializerJQLikeProvider,
   $HttpBackendProvider,
+  $xhrFactoryProvider,
   $LocationProvider,
   $LogProvider,
   $ParseProvider,
@@ -2383,11 +2384,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.4.6',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.4.7',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 4,
-  dot: 6,
-  codeName: 'multiplicative-elevation'
+  dot: 7,
+  codeName: 'dark-luminescence'
 };
 
 
@@ -2504,6 +2505,7 @@ function publishExternalAPI(angular) {
         $httpParamSerializer: $HttpParamSerializerProvider,
         $httpParamSerializerJQLike: $HttpParamSerializerJQLikeProvider,
         $httpBackend: $HttpBackendProvider,
+        $xhrFactory: $xhrFactoryProvider,
         $location: $LocationProvider,
         $log: $LogProvider,
         $parse: $ParseProvider,
@@ -2678,10 +2680,10 @@ function camelCase(name) {
     replace(MOZ_HACK_REGEXP, 'Moz$1');
 }
 
-var SINGLE_TAG_REGEXP = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
+var SINGLE_TAG_REGEXP = /^<([\w-]+)\s*\/?>(?:<\/\1>|)$/;
 var HTML_REGEXP = /<|&#?\w+;/;
-var TAG_NAME_REGEXP = /<([\w:]+)/;
-var XHTML_TAG_REGEXP = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi;
+var TAG_NAME_REGEXP = /<([\w:-]+)/;
+var XHTML_TAG_REGEXP = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi;
 
 var wrapMap = {
   'option': [1, '<select multiple="multiple">', '</select>'],
@@ -5413,6 +5415,13 @@ var $CoreAnimateCssProvider = function() {
     };
 
     return function(element, options) {
+      // there is no point in applying the styles since
+      // there is no animation that goes on at all in
+      // this version of $animateCss.
+      if (options.cleanupStyles) {
+        options.from = options.to = null;
+      }
+
       if (options.from) {
         element.css(options.from);
         options.from = null;
@@ -5880,10 +5889,10 @@ function $BrowserProvider() {
            $scope.keys = [];
            $scope.cache = $cacheFactory('cacheId');
            $scope.put = function(key, value) {
-             if (isUndefined($scope.cache.get(key))) {
+             if (angular.isUndefined($scope.cache.get(key))) {
                $scope.keys.push(key);
              }
-             $scope.cache.put(key, isUndefined(value) ? null : value);
+             $scope.cache.put(key, angular.isUndefined(value) ? null : value);
            };
          }]);
      </file>
@@ -8640,7 +8649,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         compile: function() {
             return {
               pre: function attrInterpolatePreLinkFn(scope, element, attr) {
-                var $$observers = (attr.$$observers || (attr.$$observers = {}));
+                var $$observers = (attr.$$observers || (attr.$$observers = createMap()));
 
                 if (EVENT_HANDLER_ATTR_REGEXP.test(name)) {
                   throw $compileMinErr('nodomevents',
@@ -9692,28 +9701,18 @@ function $HttpProvider() {
      *
      *
      * ## General usage
-     * The `$http` service is a function which takes a single argument — a configuration object —
+     * The `$http` service is a function which takes a single argument — a {@link $http#usage configuration object} —
      * that is used to generate an HTTP request and returns  a {@link ng.$q promise}.
      *
      * ```js
-     *   // Simple GET request example :
-     *   $http.get('/someUrl').
-     *     then(function(response) {
+     *   // Simple GET request example:
+     *   $http({
+     *     method: 'GET',
+     *     url: '/someUrl'
+     *   }).then(function successCallback(response) {
      *       // this callback will be called asynchronously
      *       // when the response is available
-     *     }, function(response) {
-     *       // called asynchronously if an error occurs
-     *       // or server returns response with an error status.
-     *     });
-     * ```
-     *
-     * ```js
-     *   // Simple POST request example (passing data) :
-     *   $http.post('/someUrl', {msg:'hello word!'}).
-     *     then(function(response) {
-     *       // this callback will be called asynchronously
-     *       // when the response is available
-     *     }, function(response) {
+     *     }, function errorCallback(response) {
      *       // called asynchronously if an error occurs
      *       // or server returns response with an error status.
      *     });
@@ -9733,25 +9732,16 @@ function $HttpProvider() {
      * XMLHttpRequest will transparently follow it, meaning that the error callback will not be
      * called for such responses.
      *
-     * ## Writing Unit Tests that use $http
-     * When unit testing (using {@link ngMock ngMock}), it is necessary to call
-     * {@link ngMock.$httpBackend#flush $httpBackend.flush()} to flush each pending
-     * request using trained responses.
-     *
-     * ```
-     * $httpBackend.expectGET(...);
-     * $http.get(...);
-     * $httpBackend.flush();
-     * ```
      *
      * ## Shortcut methods
      *
      * Shortcut methods are also available. All shortcut methods require passing in the URL, and
-     * request data must be passed in for POST/PUT requests.
+     * request data must be passed in for POST/PUT requests. An optional config can be passed as the
+     * last argument.
      *
      * ```js
-     *   $http.get('/someUrl').then(successCallback);
-     *   $http.post('/someUrl', data).then(successCallback);
+     *   $http.get('/someUrl', config).then(successCallback, errorCallback);
+     *   $http.post('/someUrl', data, config).then(successCallback, errorCallback);
      * ```
      *
      * Complete list of shortcut methods:
@@ -9764,6 +9754,17 @@ function $HttpProvider() {
      * - {@link ng.$http#jsonp $http.jsonp}
      * - {@link ng.$http#patch $http.patch}
      *
+     *
+     * ## Writing Unit Tests that use $http
+     * When unit testing (using {@link ngMock ngMock}), it is necessary to call
+     * {@link ngMock.$httpBackend#flush $httpBackend.flush()} to flush each pending
+     * request using trained responses.
+     *
+     * ```
+     * $httpBackend.expectGET(...);
+     * $http.get(...);
+     * $httpBackend.flush();
+     * ```
      *
      * ## Deprecation Notice
      * <div class="alert alert-danger">
@@ -9922,7 +9923,7 @@ function $HttpProvider() {
      *
      * There are two kinds of interceptors (and two kinds of rejection interceptors):
      *
-     *   * `request`: interceptors get called with a http `config` object. The function is free to
+     *   * `request`: interceptors get called with a http {@link $http#usage config} object. The function is free to
      *     modify the `config` object or create a new one. The function needs to return the `config`
      *     object directly, or a promise containing the `config` or a new `config` object.
      *   * `requestError`: interceptor gets called when a previous interceptor threw an error or
@@ -10588,8 +10589,33 @@ function $HttpProvider() {
   }];
 }
 
-function createXhr() {
-    return new window.XMLHttpRequest();
+/**
+ * @ngdoc service
+ * @name $xhrFactory
+ *
+ * @description
+ * Factory function used to create XMLHttpRequest objects.
+ *
+ * Replace or decorate this service to create your own custom XMLHttpRequest objects.
+ *
+ * ```
+ * angular.module('myApp', [])
+ * .factory('$xhrFactory', function() {
+ *   return function createXhr(method, url) {
+ *     return new window.XMLHttpRequest({mozSystem: true});
+ *   };
+ * });
+ * ```
+ *
+ * @param {string} method HTTP method of the request (GET, POST, PUT, ..)
+ * @param {string} url URL of the request.
+ */
+function $xhrFactoryProvider() {
+  this.$get = function() {
+    return function createXhr() {
+      return new window.XMLHttpRequest();
+    };
+  };
 }
 
 /**
@@ -10597,6 +10623,7 @@ function createXhr() {
  * @name $httpBackend
  * @requires $window
  * @requires $document
+ * @requires $xhrFactory
  *
  * @description
  * HTTP backend used by the {@link ng.$http service} that delegates to
@@ -10609,8 +10636,8 @@ function createXhr() {
  * $httpBackend} which can be trained with responses.
  */
 function $HttpBackendProvider() {
-  this.$get = ['$browser', '$window', '$document', function($browser, $window, $document) {
-    return createHttpBackend($browser, createXhr, $browser.defer, $window.angular.callbacks, $document[0]);
+  this.$get = ['$browser', '$window', '$document', '$xhrFactory', function($browser, $window, $document, $xhrFactory) {
+    return createHttpBackend($browser, $xhrFactory, $browser.defer, $window.angular.callbacks, $document[0]);
   }];
 }
 
@@ -10634,7 +10661,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
       });
     } else {
 
-      var xhr = createXhr();
+      var xhr = createXhr(method, url);
 
       xhr.open(method, url, true);
       forEach(headers, function(value, key) {
@@ -12503,20 +12530,30 @@ var $parseMinErr = minErr('$parse');
 
 
 function ensureSafeMemberName(name, fullExpression) {
+  if (name === "__defineGetter__" || name === "__defineSetter__"
+      || name === "__lookupGetter__" || name === "__lookupSetter__"
+      || name === "__proto__") {
+    throw $parseMinErr('isecfld',
+        'Attempting to access a disallowed field in Angular expressions! '
+        + 'Expression: {0}', fullExpression);
+  }
+  return name;
+}
+
+function getStringValue(name, fullExpression) {
   // From the JavaScript docs:
   // Property names must be strings. This means that non-string objects cannot be used
   // as keys in an object. Any non-string object, including a number, is typecasted
   // into a string via the toString method.
   //
   // So, to ensure that we are checking the same `name` that JavaScript would use,
-  // we cast it to a string, if possible
-  name =  (isObject(name) && name.toString) ? name.toString() : name;
-
-  if (name === "__defineGetter__" || name === "__defineSetter__"
-      || name === "__lookupGetter__" || name === "__lookupSetter__"
-      || name === "__proto__") {
-    throw $parseMinErr('isecfld',
-        'Attempting to access a disallowed field in Angular expressions! '
+  // we cast it to a string, if possible.
+  // Doing `name + ''` can cause a repl error if the result to `toString` is not a string,
+  // this is, this will handle objects that misbehave.
+  name = name + '';
+  if (!isString(name)) {
+    throw $parseMinErr('iseccst',
+        'Cannot convert object to primitive value! '
         + 'Expression: {0}', fullExpression);
   }
   return name;
@@ -12563,6 +12600,16 @@ function ensureSafeFunction(obj, fullExpression) {
       throw $parseMinErr('isecff',
         'Referencing call, apply or bind in Angular expressions is disallowed! Expression: {0}',
         fullExpression);
+    }
+  }
+}
+
+function ensureSafeAssignContext(obj, fullExpression) {
+  if (obj) {
+    if (obj === (0).constructor || obj === (false).constructor || obj === ''.constructor ||
+        obj === {}.constructor || obj === [].constructor || obj === Function.constructor) {
+      throw $parseMinErr('isecaf',
+        'Assigning to a constructor is disallowed! Expression: {0}', fullExpression);
     }
   }
 }
@@ -13281,6 +13328,8 @@ ASTCompiler.prototype = {
         'ensureSafeMemberName',
         'ensureSafeObject',
         'ensureSafeFunction',
+        'getStringValue',
+        'ensureSafeAssignContext',
         'ifDefined',
         'plus',
         'text',
@@ -13289,6 +13338,8 @@ ASTCompiler.prototype = {
           ensureSafeMemberName,
           ensureSafeObject,
           ensureSafeFunction,
+          getStringValue,
+          ensureSafeAssignContext,
           ifDefined,
           plusFn,
           expression);
@@ -13432,6 +13483,7 @@ ASTCompiler.prototype = {
           if (ast.computed) {
             right = self.nextId();
             self.recurse(ast.property, right);
+            self.getStringValue(right);
             self.addEnsureSafeMemberName(right);
             if (create && create !== 1) {
               self.if_(self.not(self.computedMember(left, right)), self.lazyAssign(self.computedMember(left, right), '{}'));
@@ -13515,6 +13567,7 @@ ASTCompiler.prototype = {
         self.if_(self.notNull(left.context), function() {
           self.recurse(ast.right, right);
           self.addEnsureSafeObject(self.member(left.context, left.name, left.computed));
+          self.addEnsureSafeAssignContext(left.context);
           expression = self.member(left.context, left.name, left.computed) + ast.operator + right;
           self.assign(intoId, expression);
           recursionFn(intoId || expression);
@@ -13640,6 +13693,10 @@ ASTCompiler.prototype = {
     this.current().body.push(this.ensureSafeFunction(item), ';');
   },
 
+  addEnsureSafeAssignContext: function(item) {
+    this.current().body.push(this.ensureSafeAssignContext(item), ';');
+  },
+
   ensureSafeObject: function(item) {
     return 'ensureSafeObject(' + item + ',text)';
   },
@@ -13650,6 +13707,14 @@ ASTCompiler.prototype = {
 
   ensureSafeFunction: function(item) {
     return 'ensureSafeFunction(' + item + ',text)';
+  },
+
+  getStringValue: function(item) {
+    this.assign(item, 'getStringValue(' + item + ',text)');
+  },
+
+  ensureSafeAssignContext: function(item) {
+    return 'ensureSafeAssignContext(' + item + ',text)';
   },
 
   lazyRecurse: function(ast, intoId, nameId, recursionFn, create, skipWatchIdCheck) {
@@ -13829,6 +13894,7 @@ ASTInterpreter.prototype = {
         var lhs = left(scope, locals, assign, inputs);
         var rhs = right(scope, locals, assign, inputs);
         ensureSafeObject(lhs.value, self.expression);
+        ensureSafeAssignContext(lhs.context);
         lhs.context[lhs.name] = rhs;
         return context ? {value: rhs} : rhs;
       };
@@ -14026,6 +14092,7 @@ ASTInterpreter.prototype = {
       var value;
       if (lhs != null) {
         rhs = right(scope, locals, assign, inputs);
+        rhs = getStringValue(rhs);
         ensureSafeMemberName(rhs, expression);
         if (create && create !== 1 && lhs && !(lhs[rhs])) {
           lhs[rhs] = {};
@@ -18662,6 +18729,7 @@ function formatNumber(number, pattern, groupSep, decimalSep, fractionSize) {
     if (fractionSize > 0 && number < 1) {
       formatedText = number.toFixed(fractionSize);
       number = parseFloat(formatedText);
+      formatedText = formatedText.replace(DECIMAL_SEP, decimalSep);
     }
   }
 
@@ -24457,7 +24525,7 @@ var ngInitDirective = ngDirective({
  *   </file>
  * </example>
  *
- * ### Example - splitting on whitespace
+ * ### Example - splitting on newline
  * <example name="ngList-directive-newlines">
  *   <file name="index.html">
  *    <textarea ng-model="list" ng-list="&#10;" ng-trim="false"></textarea>
@@ -24542,7 +24610,9 @@ var ngModelMinErr = minErr('ngModel');
  * @ngdoc type
  * @name ngModel.NgModelController
  *
- * @property {string} $viewValue Actual string value in the view.
+ * @property {*} $viewValue The actual value from the control's view. For `input` elements, this is a
+ * String. See {@link ngModel.NgModelController#$setViewValue} for information about when the $viewValue
+ * is set.
  * @property {*} $modelValue The value in the model that the control is bound to.
  * @property {Array.<Function>} $parsers Array of functions to execute, as a pipeline, whenever
        the control reads value from the DOM. The functions are called in array order, each passing
@@ -26493,11 +26563,16 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
       function updateOptionElement(option, element) {
         option.element = element;
         element.disabled = option.disabled;
-        if (option.value !== element.value) element.value = option.selectValue;
+        // NOTE: The label must be set before the value, otherwise IE10/11/EDGE create unresponsive
+        // selects in certain circumstances when multiple selects are next to each other and display
+        // the option list in listbox style, i.e. the select is [multiple], or specifies a [size].
+        // See https://github.com/angular/angular.js/issues/11314 for more info.
+        // This is unfortunately untestable with unit / e2e tests
         if (option.label !== element.label) {
           element.label = option.label;
           element.textContent = option.label;
         }
+        if (option.value !== element.value) element.value = option.selectValue;
       }
 
       function addOrReuseElement(parent, current, type, templateElement) {
@@ -26538,7 +26613,10 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
         if (emptyOption_ || unknownOption_) {
           while (current &&
                 (current === emptyOption_ ||
-                current === unknownOption_)) {
+                current === unknownOption_ ||
+                emptyOption_ && emptyOption_.nodeType === NODE_TYPE_COMMENT)) {
+            // Empty options might have directives that transclude
+            // and insert comments (e.g. ngIf)
             current = current.nextSibling;
           }
         }
@@ -28286,7 +28364,7 @@ var SelectController =
  *     </select><br>
  *
  *     <label for="singleSelect"> Single select with "not selected" option and dynamic option values: </label><br>
- *     <select name="singleSelect" ng-model="data.singleSelect">
+ *     <select name="singleSelect" id="singleSelect" ng-model="data.singleSelect">
  *       <option value="">---Please select---</option> <!-- not selected / blank option -->
  *       <option value="{{data.option1}}">Option 1</option> <!-- interpolation -->
  *       <option value="option-2">Option 2</option>
@@ -28327,7 +28405,7 @@ var SelectController =
  * <div ng-controller="ExampleController">
  *   <form name="myForm">
  *     <label for="repeatSelect"> Repeat select: </label>
- *     <select name="repeatSelect" ng-model="data.repeatSelect">
+ *     <select name="repeatSelect" id="repeatSelect" ng-model="data.repeatSelect">
  *       <option ng-repeat="option in data.availableOptions" value="{{option.id}}">{{option.name}}</option>
  *     </select>
  *   </form>
@@ -28339,7 +28417,7 @@ var SelectController =
  *  angular.module('ngrepeatSelect', [])
  *    .controller('ExampleController', ['$scope', function($scope) {
  *      $scope.data = {
- *       singleSelect: null,
+ *       repeatSelect: null,
  *       availableOptions: [
  *         {id: '1', name: 'Option A'},
  *         {id: '2', name: 'Option B'},
