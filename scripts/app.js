@@ -8,14 +8,15 @@
 'use strict';
 
 angular.module('myApp', [
+  'angular-loading-bar',
   'ngRoute',
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers'
+  'myApp.controllers',
 ])
 
-.config(['$routeProvider', function($routeProvider) {
+.config(['$routeProvider', 'cfpLoadingBarProvider', function($routeProvider, cfpLoadingBarProvider) {
   $routeProvider
     .when('/', {
       controller: 'AppCtrl',
@@ -82,20 +83,21 @@ angular.module('myApp.controllers', [])
 
     $scope.$watchCollection('model', function(values, previous) {
       if(values.faculty && values.department && values.course) {
-        $log.log(values.faculty + ' ' + values.department + ' ' + values.course + ' ' + values.group)
         storage.getGroups(values.faculty, values.department, values.course).success(function(response){
           $scope.data.groups = response.items;
         })
       }
+    });
 
-      if(values.faculty && values.department && values.course && values.group) {
-        if(values.group != null && values.group != 'null')
+    $scope.$watch('model.group', function(newValue, oldValue) {
+      if(newValue == null) {
+        $scope.data.schedule = [];
+      } else {
         $scope.loadGroupSchedule();
       }
     });
 
     $scope.loadGroupSchedule = function() {
-      $log.log('run');
       storage.getGroupSchedule($scope.model.group).success(function(response){
         $scope.data.schedule = response;
       })
@@ -108,6 +110,14 @@ angular.module('myApp.controllers', [])
       localStorage.setItem('groupId', $scope.model.group);
     }
 
+    $scope.getGroupName = function() {
+      for(var i in $scope.data.groups){
+        if($scope.data.groups[i].id == $scope.model.group) {
+          return $scope.data.groups[i].title;
+        }
+      }
+    }
+
   }])
 
   .controller('TestCtrl', ['$scope', '$log', 'storage', function($scope, $log, storage) {
@@ -117,6 +127,9 @@ angular.module('myApp.directives', []);
 angular.module('myApp.services', [])
 
   .factory('storage', ['$http', 'config', function($http, config){
+
+    var today = new Date();
+
     return {
       getFaculties: function() {
         return $http.get(config.apiUrl + '/getFaculties');
